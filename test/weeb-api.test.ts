@@ -1,5 +1,4 @@
 import WeebAPI from "../src/weeb-api"
-import { Image, Tags, Types } from "../src/weeb-api"
 
 const weebClient = new WeebAPI(process.env.TOKEN)
 
