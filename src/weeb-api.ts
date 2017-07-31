@@ -1,15 +1,34 @@
 import * as https from "https"
 
-export interface TypeParams {
-  readonly type: string
-  readonly tags?: string
-  readonly nsfw?: string
+export interface Image {
+  baseType: string
+  fileType: string
+  id: string
+  mimeType: string
+  nsfw: boolean
+  tags: string[]
+  type: string
+  url: string
+}
+
+export interface Tags {
+  types: string[]
 }
 
 export interface TagParams {
-  readonly type?: string
-  readonly tags: string
-  readonly nsfw?: string
+  nsfw?: string
+  tags: string
+  type?: string
+}
+
+export interface Types {
+  types: string[]
+}
+
+export interface TypeParams {
+  nsfw?: string
+  tags?: string
+  type: string
 }
 
 export type UrlParams = TypeParams | TagParams
@@ -49,7 +68,7 @@ export default class WeebAPI {
    *
    * @returns {Promise<Object[]>} Array of current types
    */
-  getTypes(): Promise<object> {
+  getTypes(): Promise<Types> {
     return this.request("/images/types")
   }
 
@@ -69,7 +88,7 @@ export default class WeebAPI {
    *
    * @returns {Promise<Object[]>} Array of current tags
    */
-  getTags(): Promise<object> {
+  getTags(): Promise<Tags> {
     return this.request("/images/tags")
   }
 
@@ -90,7 +109,7 @@ export default class WeebAPI {
    * @param {string} id Image id
    * @returns {Promise<Object>} Image info object
    */
-  getImage(id: string): Promise<object> {
+  getImage(id: string): Promise<Image> {
     return this.request("/images/info/" + id)
   }
 
@@ -159,7 +178,7 @@ export default class WeebAPI {
    * @param {UrlParams} options Image request options
    * @returns {Promise<Object>} Image data
    */
-  getRandom(options: UrlParams): Promise<object> {
+  getRandom(options: UrlParams): Promise<Image> {
     const parsedOptions = Object.entries(options)
       .map(([key, value]) => {
         return encodeURIComponent(key) + "=" + encodeURIComponent(value)
@@ -175,7 +194,7 @@ export default class WeebAPI {
    * @param {string} url
    * @returns {Promise<Object | void>}
    */
-  request(url: string): Promise<object> {
+  request(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       https
         .get(
