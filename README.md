@@ -1,52 +1,119 @@
-##Usage
-  
-```typescript
-import WeebAPI from 'weeb-api';
-  
-const weebClient = new WeebAPI('key');
+# weeb-api
+
+Weeb-Api is a Typescript Library which makes interacting with WeebApi v2
+simple and with 0 dependencies.
+
+### Installation
+If using yarn,
+```sh
+$ yarn add weeb-api --save
 ```
-
-####Get an array of all the current types
-
+If using npm,
+```sh
+$ npm install weeb-api --save
+```
+To use the library you need to obtain a WeebAPI token.
+### Examples  
+Get an array of all the current types:
 ```typescript
-let response;
+import WeebAPI from "weeb-api";
  
-try {
-  response = await weebClient.getTypes()
-} catch(e) {
-  // Handle error
-}
+const weebApi = new WeebAPI(process.env.TOKEN);
+ 
+(async () => {
+  let response;
+   
+  try {
+    response = await weebClient.getTypes();
+  } catch(e) {
+    // Handle error with request
+    
+    console.log(e);
+    return;
+  }
+  // Do something with returned response
+  
+  console.log(response);
+})();
+```
+Get an array of all the current tags:
+```typescript
+import WeebAPI from "weeb-api";
+ 
+const weebApi = new WeebAPI(process.env.TOKEN);
+ 
+(async () => {
+  let response;
+    
+  try {
+    response = await weebClient.getTags()
+  } catch(e) {
+    // Handle error with request
+    
+    console.log(e);
+    return;
+  }
+  //Do something with response
+  
+  console.log(response);
+})();
+
+
 ```
 
-####Get an array of all the current tags
+Get info on an image by its ID:
 
 ```typescript
-let response;
+import WeebAPI from "weeb-api";
+ 
+const weebApi = new WeebAPI(process.env.TOKEN);
+ 
+(async () => {
+  let response;
+   
+  try {
+    response = await weebClient.getImage(id)
+  } catch(e) {
+  // Handle error with request
   
-try {
-  response = await weebClient.getTags()
-} catch(e) {
-  // Handle error
-}
+   console.log(e);
+   return;
+  } 
+  // Do something with returned response
+  
+  console.log(response);
+})();
 ```
-
-####Get info on an image using its ID
+ 
+Supplying all options:
 
 ```typescript
-let response;
+import WeebAPI from "weeb-api";
+
+const weebApi = new WeebAPI(process.env.TOKEN);
+
+(async () => {
+  let response;
+   
+  try {
+    response = await weebClient.getRandom({
+      type: "kiss",
+      tags: "girl",
+      nsfw: "true",
+    });
+  } catch(e) {
+    // Handle error with request
+    
+    console.log(e);
+    return;
+  }
+  // Do something with the returned response
   
-try {
-  response = await weebClient.getImage(id)
-} catch(e) {
-  // Handle error
-}
+  console.log(response);
+})();
+
 ```
-
-####Get a random image using the passed options.
-Both type and tags are optional but one of either must always be supplied. 
-`nsfw` does not need to be supplied and will default to false.
-
-#####Options explanation
+Image request options:
    
 ```typescript
 const options = {
@@ -55,49 +122,7 @@ const options = {
   nsfw: string, // false(no nsfw), true(nsfw and no-nsfw), only(only nsfw)
 }
 ```
- 
-#####Leaving out image tags
-   
-```typescript
-let response;
-  
-try {
-  response = await weebClient.getRandom({
-    type: 'hug',
-    nsfw: 'only',
-  });
-} catch(e) {
-  // Handle error
-}
-```
+### License
+This project is [licensed under ISC][license].
 
-#####Leaving out image type
-
-```typescript
-let response;
-  
-try {
-  response = await weebClient.getRandom({
-    tags: 'girl,cute',
-    nsfw: 'only',
-  });
-} catch(e) {
-  // Handle error
-}
-```
-
-#####Supplying all options
-
-```typescript
-let response;
- 
-try {
-  response = await weebClient.getRandom({
-    type: 'kiss',
-    tags: 'girl',
-    nsfw: 'true',
-  });
-} catch(e) {
-  // Handle error
-}
-```
+[license]: https://github.com/hsiW/weeb-api.ts/blob/master/LICENSE
