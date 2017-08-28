@@ -69,6 +69,6 @@
     "tslint": "^5.4.3",
     "tslint-config-enkel": "^0.1.0",
     "typedoc": "^0.7.1",
-    "typescript": "^2.3.4",
+    "typescript": "^2.3.4"
   }
 }
