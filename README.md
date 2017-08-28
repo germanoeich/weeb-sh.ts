@@ -1,8 +1,7 @@
+[![ci-badge]][ci] [![docs-badge][]][docs]
 # weeb-api
-
 Weeb-Api is a Typescript Library which makes interacting with WeebApi v2
 simple and with 0 dependencies.
-
 ### Installation
 If using yarn,
 ```sh
@@ -126,3 +125,7 @@ const options = {
 This project is [licensed under ISC][license].
 
 [license]: https://github.com/hsiW/weeb-api.ts/blob/master/LICENSE
+[ci]: https://travis-ci.org/meilasw/weeb-api.ts
+[ci-badge]: https://travis-ci.org/meilasw/weeb-api.ts.svg?branch=master
+[docs]: https://meilasw.github.io/weeb-api.ts/
+[docs-badge]: https://img.shields.io/badge/docs-online-5023dd.svg
