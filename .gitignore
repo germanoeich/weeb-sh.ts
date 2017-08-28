@@ -1,10 +1,7 @@
-node_modules
-coverage
-.nyc_output
-.DS_Store
-*.log
-.vscode
 .idea
-dist
-compiled
-.awcache
+compiled/
+dist/
+node_modules/
+package-lock.json
+yarn-error.log
+yarn.lock
