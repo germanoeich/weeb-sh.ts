@@ -1,6 +1,6 @@
 {
   "name": "weeb-api",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A fast, 0-dependency WeebAPI wrapper.",
   "keywords": [],
   "main": "dist/weeb-api.umd.js",
