@@ -1,6 +1,10 @@
-import * as https from "https";
+import axios from 'axios';
 
 export interface Image {
+  /**
+   * Id of the account that uploaded the image
+   */
+  account: string;
   /**
    * The base type of the image
    */
@@ -10,9 +14,16 @@ export interface Image {
    */
   fileType: string;
   /**
+   * Whether the image is private to the uploader
+   */
+  hidden: boolean;
+  /**
    * The image id
    */
   id: string;
+  /**
+   * Mime type of the image
+   */
   mimeType: string;
   /**
    * Whether the image is nsfw or not(true or false)
@@ -21,7 +32,7 @@ export interface Image {
   /**
    * The tags of the image
    */
-  tags: string[];
+  tags: ImageTag[];
   /**
    * The type of the image returned
    */
@@ -32,14 +43,23 @@ export interface Image {
   url: string;
 }
 
-export interface Tags {
+export interface ImageTag {
   /**
-   * Array of all possible tags
+   * Whether the tag is private and only available to its creator
    */
-  types: string[];
+  hidden: boolean;
+  /**
+   * Name of the tag
+   */
+  name: string;
+  /**
+   * Id of the account that created the tag
+   */
+  user: string;
 }
 
 export interface TagParams {
+  hidden?: boolean;
   /**
    * Whether the returned image can be nsfw or not; available options are true,
    * false or only.
@@ -63,6 +83,7 @@ export interface Types {
 }
 
 export interface TypeParams {
+  hidden?: boolean;
   /**
    * Whether the returned image can be nsfw or not; available options are true,
    * false or only.
@@ -82,7 +103,7 @@ export type UrlParams = TypeParams | TagParams;
 
 // noinspection JSUnusedGlobalSymbols
 export default class WeebAPI {
-  private baseURL: string = "https://staging.weeb.sh";
+  private baseURL: string = "https://api.weeb.sh";
   // noinspection JSUnusedGlobalSymbols
   /**
    * Create a new WeebAPI instance using your authentication key.
@@ -124,11 +145,12 @@ export default class WeebAPI {
    * }
    * ~~~
    *
-   * @returns {Promise<Object[]>} Array of current types
+   * @param {boolean} [hidden] Whether to include hidden image types
+   * @returns {Promise<Object[]>} Array of current image types
    * @public
    */
-  public getTypes(): Promise<Types> {
-    return this.request("/images/types");
+  public getTypes(hidden?: boolean): Promise<Types> {
+    return this.request("/images/types", { hidden: hidden });
   }
 
   // noinspection JSUnusedGlobalSymbols
@@ -153,11 +175,12 @@ export default class WeebAPI {
    * }
    * ~~~
    *
+   * @param {boolean} [hidden] Whether to include hidden image tags
    * @returns {Promise<Object[]>} Array of current tags
    * @public
    */
-  public getTags(): Promise<Tags> {
-    return this.request("/images/tags");
+  public getTags(hidden?: boolean): Promise<ImageTag[]> {
+    return this.request("/images/tags", { hidden: hidden });
   }
 
   // noinspection JSUnusedGlobalSymbols
@@ -180,7 +203,7 @@ export default class WeebAPI {
    * }
    * ~~~
    *
-   * @param {string} id Image id
+   * @param {string} id The id of the image
    * @returns {Promise<Object>} Image info object
    * @public
    */
@@ -257,11 +280,12 @@ export default class WeebAPI {
    * Image request options:
    *
    * ~~~
-   *  const options = {
-   *    type: string, // Image type
-   *    tags: string, // Image tags, a list of tags seperated by commas
-   *    nsfw: string, // false(no nsfw), true(nsfw and no-nsfw), only(only nsfw)
-   *  }
+   * const options = {
+   *   hidden: string, // Return an image that is private to you or not
+   *   nsfw: string, // false(no nsfw), true(nsfw and no-nsfw), only(only nsfw)
+   *   tags: string, // Image tags, a list of tags seperated by commas
+   *   type: string, // Image type
+   * }
    * ~~~
    *
    * @param {UrlParams} options Image request options
@@ -269,40 +293,37 @@ export default class WeebAPI {
    * @public
    */
   public getRandom(options: UrlParams): Promise<Image> {
-    const parsedOptions = Object.entries(options).map(([key, value]) => {
-        return encodeURIComponent(key) + "=" + encodeURIComponent(value)
-      }).join("&");
-
-    return this.request("/images/random?" + parsedOptions);
+    return this.request("/images/random", options);
   }
 
   /*
    * Make a GET request to WeebAPI with the passed URL
    *
    * @param {string} url
+   * @param {object} [params]
    * @returns {Promise<Object | void>}
    * @private
    */
-  private request(url: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      https.get({
-        hostname: this.baseURL,
-        path: url,
-        headers: {
-          Authorization: this.token,
-        }
-      }, res => {
-        let output: string;
+  private async request(url: string, params?: object): Promise<any> {
+    let response;
 
-        res.on("data", chunk => {
-          output += chunk
-        }).on("end", () => {
-          resolve(JSON.parse(output))
-        });
+    try {
+      response = await axios({
+        baseURL: this.baseURL,
+        headers: {
+          Authorization: "Bearer" + this.token,
+          "Content-Type": "application/json",
+        },
+        method: "get",
+        params,
+        url,
       })
-        .on("error", err => {
-          reject(err);
-        });
-    })
+    } catch (e) {
+      return Promise.reject(e);
+    }
+
+    console.log(response);
+
+    return response;
   }
 }

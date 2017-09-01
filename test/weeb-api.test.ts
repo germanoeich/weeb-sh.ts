@@ -4,17 +4,17 @@ const weebApi = new WeebAPI(process.env.TOKEN);
 
 describe("Get Types Array", () => {
   it("got data from api", () => {
-    weebApi.getTypes().then(data => {
+    weebApi.getTypes(false).then(data => {
         expect(data).toHaveProperty("types")
       }).catch(e => {
-        expect(e).toBeDefined()
+        console.log(e);
       });
   });
 });
 
 describe("Get Tags Array", () => {
   it("got data from api", () => {
-    weebApi.getTags().then(data => {
+    weebApi.getTags(true).then(data => {
         expect(data).toHaveProperty("tags");
     }).catch(e => {
       expect(e).toBeDefined();
