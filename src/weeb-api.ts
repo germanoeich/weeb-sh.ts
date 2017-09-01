@@ -311,7 +311,7 @@ export default class WeebAPI {
       response = await axios({
         baseURL: this.baseURL,
         headers: {
-          Authorization: "Bearer" + this.token,
+          Authorization: "Bearer " + this.token,
           "Content-Type": "application/json",
         },
         method: "get",
