@@ -102,23 +102,23 @@ export interface TypeParams {
 export type UrlParams = TypeParams | TagParams;
 
 // noinspection JSUnusedGlobalSymbols
-export default class WeebAPI {
+export default class WeebSH {
   private baseURL: string = "https://api.weeb.sh";
   // noinspection JSUnusedGlobalSymbols
   /**
-   * Create a new WeebAPI instance using your authentication key.
+   * Create a new WeebSH instance using your authentication key.
    *
    * ### Examples
    *
-   * Create a new WeebAPI instance using the obtained authentication token:
+   * Create a new WeebSH instance using the obtained authentication token:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    * ~~~
    *
-   * @param {string} token WeebAPI authentication token
+   * @param {string} token WeebSH authentication token
    * @public
    */
   public constructor(private token: string) { }
@@ -132,21 +132,21 @@ export default class WeebAPI {
    * Get an array of all the current types:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getTypes();
+   *   response = await weebSh.getTypes();
    * } catch(e) {
    *   // Handle error
    * }
    * ~~~
    *
    * @param {boolean} [hidden] Whether to include hidden image types
-   * @returns {Promise<Object[]>} Array of current image types
+   * @returns {Promise<Types[]>} Array of current image types
    * @public
    */
   public getTypes(hidden?: boolean): Promise<Types> {
@@ -162,21 +162,21 @@ export default class WeebAPI {
    * Get an array of all the current tags:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getTags();
+   *   response = await weebSh.getTags();
    * } catch(e) {
    *   // Handle error
    * }
    * ~~~
    *
-   * @param {boolean} [hidden] Whether to include hidden image tags
-   * @returns {Promise<Object[]>} Array of current tags
+   * @param {boolean} hidden Whether to include hidden image tags
+   * @returns {Promise<ImageTag[]>} Array of current tags
    * @public
    */
   public getTags(hidden?: boolean): Promise<ImageTag[]> {
@@ -190,21 +190,21 @@ export default class WeebAPI {
    * ### Examples
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getImage(id);
+   *   response = await weebSh.getImage(id);
    * } catch(e) {
    *   // Handle error
    * }
    * ~~~
    *
    * @param {string} id The id of the image
-   * @returns {Promise<Object>} Image info object
+   * @returns {Promise<Image>} Image info object
    * @public
    */
   public getImage(id: string): Promise<Image> {
@@ -222,14 +222,14 @@ export default class WeebAPI {
    * Leaving out image tags:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getRandom({
+   *   response = await weebSh.getRandom({
    *     type: 'hug',
    *     nsfw: 'only',
    *   });
@@ -241,16 +241,17 @@ export default class WeebAPI {
    * Leaving out image type:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getRandom({
-   *     tags: 'girl,cute',
+   *   response = await weebSh.getRandom({
+   *     hidden: true,
    *     nsfw: 'only',
+   *     tags: 'girl,cute',
    *   });
    * } catch(e) {
    *   // Handle error
@@ -260,17 +261,18 @@ export default class WeebAPI {
    * Supplying all options:
    *
    * ~~~
-   * import WeebAPI from 'weeb-api';
+   * import WeebSH from 'weeb-sh';
    *
-   * const weebApi = new WeebAPI(process.env.TOKEN);
+   * const weebSh = new WeebSH(process.env.TOKEN);
    *
    * let response;
    *
    * try {
-   *   response = await weebApi.getRandom({
-   *     type: 'kiss',
-   *     tags: 'girl',
+   *   response = await weebSh.getRandom({
+   *     hidden: false,
    *     nsfw: 'true',
+   *     tags: 'girl',
+   *     type: 'kiss',
    *   });
    * } catch(e) {
    *   // Handle error
@@ -289,7 +291,7 @@ export default class WeebAPI {
    * ~~~
    *
    * @param {UrlParams} options Image request options
-   * @returns {Promise<Object>} Image data
+   * @returns {Promise<Image>} Image data
    * @public
    */
   public getRandom(options: UrlParams): Promise<Image> {
@@ -297,11 +299,11 @@ export default class WeebAPI {
   }
 
   /*
-   * Make a GET request to WeebAPI with the passed URL
+   * Make a GET request to WeebSH with the passed URL
    *
    * @param {string} url
    * @param {object} [params]
-   * @returns {Promise<Object | void>}
+   * @returns {Promise<Object>}
    * @private
    */
   private async request(url: string, params?: object): Promise<any> {
@@ -311,7 +313,7 @@ export default class WeebAPI {
       response = await axios({
         baseURL: this.baseURL,
         headers: {
-          Authorization: "Bearer" + this.token,
+          Authorization: "Bearer " + this.token,
           "Content-Type": "application/json",
         },
         method: "get",
@@ -319,11 +321,13 @@ export default class WeebAPI {
         url,
       })
     } catch (e) {
+      if (e.data) {
+        return Promise.reject(e.data);
+      }
+
       return Promise.reject(e);
     }
 
-    console.log(response);
-
-    return response;
+    return response.data;
   }
 }

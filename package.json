@@ -1,7 +1,7 @@
 {
-  "name": "weeb-api",
+  "name": "weeb-sh",
   "version": "0.2.1",
-  "description": "A fast, 0-dependency WeebAPI wrapper.",
+  "description": "A fast, minimal weeb.sh wrapper.",
   "keywords": [],
   "main": "dist/weeb-api.umd.js",
   "module": "dist/weeb-api.es5.js",
@@ -18,7 +18,7 @@
   "author": "Mei Boudreau <xanizl@me.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meilasw/weeb-api.ts"
+    "url": "https://github.com/meilasw/weeb-sh.ts"
   },
   "license": "ISC",
   "engines": {
@@ -52,7 +52,8 @@
         "lines": 95,
         "statements": 95
       }
-    }
+    },
+    "testEnvironment": "node"
   },
   "devDependencies": {
     "@types/jest": "^20.0.0",

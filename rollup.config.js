@@ -5,7 +5,7 @@ import json from 'rollup-plugin-json'
 const pkg = require('./package.json')
 const camelCase = require('lodash.camelcase')
 
-const libraryName = 'weeb-api'
+const libraryName = 'weeb-sh'
 
 export default {
   entry: `compiled/${libraryName}.js`,

@@ -1,29 +1,29 @@
 [![ci-badge]][ci] [![docs-badge][]][docs]
-# weeb-api
+# weeb-sh
 Weeb-Api is a Typescript Library which makes interacting with WeebApi v2
-simple and with 0 dependencies.
+simple.
 ### Installation
 If using yarn,
 ```sh
-$ yarn add weeb-api --save
+$ yarn add weeb-sh --save
 ```
 If using npm,
 ```sh
-$ npm install weeb-api --save
+$ npm install weeb-sh --save
 ```
 To use the library you need to obtain a WeebAPI token.
 ### Examples  
 Get an array of all the current types:
 ```typescript
-import WeebAPI from "weeb-api";
+import WeebSH from "weeb-sh";
  
-const weebApi = new WeebAPI(process.env.TOKEN);
+const weebSh = new WeebSH(process.env.TOKEN);
  
 (async () => {
   let response;
    
   try {
-    response = await weebClient.getTypes();
+    response = await weebSh.getTypes();
   } catch(e) {
     // Handle error with request
     
@@ -37,15 +37,15 @@ const weebApi = new WeebAPI(process.env.TOKEN);
 ```
 Get an array of all the current tags:
 ```typescript
-import WeebAPI from "weeb-api";
+import WeebSH from "weeb-sh";
  
-const weebApi = new WeebAPI(process.env.TOKEN);
+const weebSh = new WeebSH(process.env.TOKEN);
  
 (async () => {
   let response;
     
   try {
-    response = await weebClient.getTags()
+    response = await weebSh.getTags()
   } catch(e) {
     // Handle error with request
     
@@ -63,15 +63,15 @@ const weebApi = new WeebAPI(process.env.TOKEN);
 Get info on an image by its ID:
 
 ```typescript
-import WeebAPI from "weeb-api";
+import WeebSH from "weeb-sh";
  
-const weebApi = new WeebAPI(process.env.TOKEN);
+const weebSh = new WeebSH(process.env.TOKEN);
  
 (async () => {
   let response;
    
   try {
-    response = await weebClient.getImage(id)
+    response = await weebSh.getImage(id)
   } catch(e) {
   // Handle error with request
   
@@ -87,15 +87,15 @@ const weebApi = new WeebAPI(process.env.TOKEN);
 Supplying all options:
 
 ```typescript
-import WeebAPI from "weeb-api";
+import WeebSH from "weeb-sh";
 
-const weebApi = new WeebAPI(process.env.TOKEN);
+const weebSh = new WeebSH(process.env.TOKEN);
 
 (async () => {
   let response;
    
   try {
-    response = await weebClient.getRandom({
+    response = await weebSh.getRandom({
       type: "kiss",
       tags: "girl",
       nsfw: "true",
@@ -124,8 +124,8 @@ const options = {
 ### License
 This project is [licensed under ISC][license].
 
-[license]: https://github.com/hsiW/weeb-api.ts/blob/master/LICENSE
-[ci]: https://travis-ci.org/meilasw/weeb-api.ts
-[ci-badge]: https://travis-ci.org/meilasw/weeb-api.ts.svg?branch=master
-[docs]: https://meilasw.github.io/weeb-api.ts/
+[license]: https://github.com/hsiW/weeb-sh.ts/blob/master/LICENSE
+[ci]: https://travis-ci.org/meilasw/weeb-sh.ts
+[ci-badge]: https://travis-ci.org/meilasw/weeb-sh.ts.svg?branch=master
+[docs]: https://meilasw.github.io/weeb-sh.ts/
 [docs-badge]: https://img.shields.io/badge/docs-online-5023dd.svg
