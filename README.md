@@ -1,6 +1,6 @@
 [![ci-badge]][ci] [![docs-badge][]][docs]
 # weeb-sh
-Weeb-Api is a Typescript Library which makes interacting with WeebApi v2
+Weeb-SH is a Typescript Library which makes interacting with weeb.sh v2
 simple.
 ### Installation
 If using yarn,
