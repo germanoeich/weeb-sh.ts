@@ -124,7 +124,7 @@ const options = {
 ### License
 This project is [licensed under ISC][license].
 
-[license]: https://github.com/hsiW/weeb-sh.ts/blob/master/LICENSE
+[license]: https://github.com/meilasw/weeb-sh.ts/blob/master/LICENSE
 [ci]: https://travis-ci.org/meilasw/weeb-sh.ts
 [ci-badge]: https://travis-ci.org/meilasw/weeb-sh.ts.svg?branch=master
 [docs]: https://meilasw.github.io/weeb-sh.ts/
