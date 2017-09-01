@@ -1,6 +1,6 @@
 {
   "name": "weeb-sh",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A fast, minimal weeb.sh wrapper.",
   "keywords": [],
   "main": "dist/weeb-sh.umd.js",
