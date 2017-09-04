@@ -12,48 +12,48 @@ If using npm,
 $ npm install weeb-sh --save
 ```
 To use the library you need to obtain a WeebAPI token.
-### Examples  
+### Examples
 Get an array of all the current types:
 ```typescript
 import WeebSH from "weeb-sh";
- 
+
 const weebSh = new WeebSH(process.env.TOKEN);
- 
+
 (async () => {
   let response;
-   
+
   try {
     response = await weebSh.getTypes();
   } catch(e) {
     // Handle error with request
-    
+
     console.log(e);
     return;
   }
   // Do something with returned response
-  
+
   console.log(response);
 })();
 ```
 Get an array of all the current tags:
 ```typescript
 import WeebSH from "weeb-sh";
- 
+
 const weebSh = new WeebSH(process.env.TOKEN);
- 
+
 (async () => {
   let response;
-    
+
   try {
     response = await weebSh.getTags()
   } catch(e) {
     // Handle error with request
-    
+
     console.log(e);
     return;
   }
   //Do something with response
-  
+
   console.log(response);
 })();
 
@@ -64,26 +64,26 @@ Get info on an image by its ID:
 
 ```typescript
 import WeebSH from "weeb-sh";
- 
+
 const weebSh = new WeebSH(process.env.TOKEN);
- 
+
 (async () => {
   let response;
-   
+
   try {
     response = await weebSh.getImage(id)
   } catch(e) {
   // Handle error with request
-  
+
    console.log(e);
    return;
-  } 
+  }
   // Do something with returned response
-  
+
   console.log(response);
 })();
 ```
- 
+
 Supplying all options:
 
 ```typescript
@@ -93,7 +93,7 @@ const weebSh = new WeebSH(process.env.TOKEN);
 
 (async () => {
   let response;
-   
+
   try {
     response = await weebSh.getRandom({
       type: "kiss",
@@ -102,18 +102,18 @@ const weebSh = new WeebSH(process.env.TOKEN);
     });
   } catch(e) {
     // Handle error with request
-    
+
     console.log(e);
     return;
   }
   // Do something with the returned response
-  
+
   console.log(response);
 })();
 
 ```
 Image request options:
-   
+
 ```typescript
 const options = {
   type: string, // Image type
@@ -124,8 +124,8 @@ const options = {
 ### License
 This project is [licensed under ISC][license].
 
-[license]: https://github.com/meilasw/weeb-sh.ts/blob/master/LICENSE
-[ci]: https://travis-ci.org/meilasw/weeb-sh.ts
-[ci-badge]: https://travis-ci.org/meilasw/weeb-sh.ts.svg?branch=master
-[docs]: https://meilasw.github.io/weeb-sh.ts/
+[license]: https://github.com/shinonome-cafe/weeb-sh.ts/blob/master/LICENSE
+[ci]: https://travis-ci.org/shinonome-cafe/weeb-sh.ts
+[ci-badge]: https://travis-ci.org/shinonome-cafe/weeb-sh.ts.svg?branch=master
+[docs]: https://shinonome-cafe.github.io/weeb-sh.ts/
 [docs-badge]: https://img.shields.io/badge/docs-online-5023dd.svg
