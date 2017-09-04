@@ -1,19 +1,29 @@
 [![ci-badge]][ci] [![docs-badge][]][docs]
+
 # weeb-sh
+
 Weeb-SH is a Typescript Library which makes interacting with weeb.sh v2
 simple.
+
 ### Installation
 If using yarn,
+
 ```sh
 $ yarn add weeb-sh --save
 ```
+
 If using npm,
+
 ```sh
 $ npm install weeb-sh --save
 ```
+
 To use the library you need to obtain a WeebAPI token.
+
 ### Examples
+
 Get an array of all the current types:
+
 ```typescript
 import WeebSH from "weeb-sh";
 
@@ -36,6 +46,7 @@ const weebSh = new WeebSH(process.env.TOKEN);
 })();
 ```
 Get an array of all the current tags:
+
 ```typescript
 import WeebSH from "weeb-sh";
 
@@ -56,8 +67,6 @@ const weebSh = new WeebSH(process.env.TOKEN);
 
   console.log(response);
 })();
-
-
 ```
 
 Get info on an image by its ID:
@@ -112,6 +121,7 @@ const weebSh = new WeebSH(process.env.TOKEN);
 })();
 
 ```
+
 Image request options:
 
 ```typescript
@@ -121,7 +131,9 @@ const options = {
   nsfw: string, // false(no nsfw), true(nsfw and no-nsfw), only(only nsfw)
 }
 ```
+
 ### License
+
 This project is [licensed under ISC][license].
 
 [license]: https://github.com/shinonome-cafe/weeb-sh.ts/blob/master/LICENSE
