@@ -95,6 +95,7 @@ export interface TypeParams {
 export declare type UrlParams = TypeParams | TagParams;
 export default class WeebSH {
     private token;
+    private tokenType;
     private baseURL;
     /**
      * Create a new WeebSH instance using your authentication key.
@@ -110,9 +111,10 @@ export default class WeebSH {
      * ~~~
      *
      * @param {string} token WeebSH authentication token
+     * @param {number} tokenType 0 for regular token, 1 for WolkeTokens
      * @public
      */
-    constructor(token: string);
+    constructor(token: string, tokenType?: number | undefined);
     /**
      * Returns an array containing all the current types in the API.
      *

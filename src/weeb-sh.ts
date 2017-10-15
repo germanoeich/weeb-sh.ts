@@ -119,9 +119,10 @@ export default class WeebSH {
    * ~~~
    *
    * @param {string} token WeebSH authentication token
+   * @param {number} tokenType 0 for regular token, 1 for WolkeTokens
    * @public
    */
-  public constructor(private token: string) { }
+  public constructor(private token: string, private tokenType?: number) { }
 
   // noinspection JSUnusedGlobalSymbols
   /**
@@ -308,12 +309,13 @@ export default class WeebSH {
    */
   private async request(url: string, params?: object): Promise<any> {
     let response;
+    const authHeader = ((this.tokenType === 1) ? "Wolke " : "Bearer ") + this.token
 
     try {
       response = await axios({
         baseURL: this.baseURL,
         headers: {
-          Authorization: "Bearer " + this.token,
+          Authorization: authHeader,
           "Content-Type": "application/json",
         },
         method: "get",

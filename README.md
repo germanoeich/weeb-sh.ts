@@ -20,6 +20,11 @@ $ npm install weeb-sh --save
 
 To use the library you need to obtain a WeebAPI token.
 
+If using a WolkeToken, create the WeebSH instance this way:
+```typescript
+const weebSh = new WeebSH(process.env.WOLKETOKEN, 1);
+```
+
 ### Examples
 
 Get an array of all the current types:
@@ -27,6 +32,7 @@ Get an array of all the current types:
 ```typescript
 import WeebSH from "weeb-sh";
 
+// If using regular tokens
 const weebSh = new WeebSH(process.env.TOKEN);
 
 (async () => {

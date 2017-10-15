@@ -1,6 +1,11 @@
 import WeebAPI from "../src/weeb-sh"
 
-const weebApi = new WeebAPI(process.env.TOKEN);
+let weebApi
+if (process.env.WOLKETOKEN) {
+  weebApi = new WeebAPI(process.env.WOLKETOKEN, 1);
+} else {
+  weebApi = new WeebAPI(process.env.TOKEN);
+}
 
 describe("Get Types Array", () => {
   it("got data from api", done => {
