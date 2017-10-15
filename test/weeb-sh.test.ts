@@ -1,8 +1,9 @@
-import WeebAPI from "../src/weeb-sh"
+import WeebAPI, { TokenType } from "../src/weeb-sh"
 
 let weebApi
-if (process.env.WOLKETOKEN) {
-  weebApi = new WeebAPI(process.env.WOLKETOKEN, 1);
+
+if (process.env.WOLKE_TOKEN) {
+  weebApi = new WeebAPI(process.env.WOLKE_TOKEN, TokenType.Wolke);
 } else {
   weebApi = new WeebAPI(process.env.TOKEN);
 }

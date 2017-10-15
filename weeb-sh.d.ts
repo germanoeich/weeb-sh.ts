@@ -92,11 +92,15 @@ export interface TypeParams {
      */
     type: string;
 }
+export declare enum TokenType {
+    Bearer = 0,
+    Wolke = 1,
+}
 export declare type UrlParams = TypeParams | TagParams;
 export default class WeebSH {
-    private token;
     private tokenType;
     private baseURL;
+    private token;
     /**
      * Create a new WeebSH instance using your authentication key.
      *
@@ -110,11 +114,19 @@ export default class WeebSH {
      * const weebSh = new WeebSH(process.env.TOKEN);
      * ~~~
      *
+     * If using WolkeTokens
+     *
+     * ~~~
+     * import WeebSH, { TokenType } from 'weeb-sh'
+     *
+     * const weebSh = new WeebSH(process.env.WOLKE_TOKEN, TokenType.Wolke)
+     * ~~~
+     *
      * @param {string} token WeebSH authentication token
-     * @param {number} tokenType 0 for regular token, 1 for WolkeTokens
+     * @param {number} tokenType Token type, as specified by the TokenType enum
      * @public
      */
-    constructor(token: string, tokenType?: number | undefined);
+    constructor(token: string, tokenType?: TokenType | undefined);
     /**
      * Returns an array containing all the current types in the API.
      *

@@ -99,11 +99,17 @@ export interface TypeParams {
   type: string;
 }
 
+export enum TokenType {
+  Bearer,
+  Wolke
+}
+
 export type UrlParams = TypeParams | TagParams;
 
 // noinspection JSUnusedGlobalSymbols
 export default class WeebSH {
   private baseURL: string = "https://api.weeb.sh";
+  private token: string;
   // noinspection JSUnusedGlobalSymbols
   /**
    * Create a new WeebSH instance using your authentication key.
@@ -118,11 +124,21 @@ export default class WeebSH {
    * const weebSh = new WeebSH(process.env.TOKEN);
    * ~~~
    *
+   * If using WolkeTokens
+   *
+   * ~~~
+   * import WeebSH, { TokenType } from 'weeb-sh'
+   *
+   * const weebSh = new WeebSH(process.env.WOLKE_TOKEN, TokenType.Wolke)
+   * ~~~
+   *
    * @param {string} token WeebSH authentication token
-   * @param {number} tokenType 0 for regular token, 1 for WolkeTokens
+   * @param {number} tokenType Token type, as specified by the TokenType enum
    * @public
    */
-  public constructor(private token: string, private tokenType?: number) { }
+  public constructor(token: string, private tokenType?: TokenType) {
+    this.token = ((tokenType === TokenType.Wolke) ? "Wolke " : "Bearer ") + this.token
+   }
 
   // noinspection JSUnusedGlobalSymbols
   /**
@@ -309,13 +325,12 @@ export default class WeebSH {
    */
   private async request(url: string, params?: object): Promise<any> {
     let response;
-    const authHeader = ((this.tokenType === 1) ? "Wolke " : "Bearer ") + this.token
 
     try {
       response = await axios({
         baseURL: this.baseURL,
         headers: {
-          Authorization: authHeader,
+          Authorization: this.token,
           "Content-Type": "application/json",
         },
         method: "get",
