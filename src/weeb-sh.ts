@@ -138,7 +138,7 @@ export default class WeebSH {
    */
   public constructor(token: string, private tokenType?: TokenType) {
     this.token = ((tokenType === TokenType.Wolke) ? "Wolke " : "Bearer ") + this.token
-   }
+  }
 
   // noinspection JSUnusedGlobalSymbols
   /**
